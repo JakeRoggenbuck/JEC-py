@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 
 class ConfigBase:
@@ -16,15 +17,16 @@ class ConfigBase:
 
 class ConfigFile(ConfigBase):
     def create(self):
-        pass
+        with open(self.path) as _:
+            pass
 
     def remove(self):
-        pass
+        os.remove(self.path)
 
 
 class ConfigDir(ConfigBase):
     def create(self):
-        pass
+        os.mkdir(self.path)
 
     def remove(self):
-        pass
+        os.rmdir(self.path)
