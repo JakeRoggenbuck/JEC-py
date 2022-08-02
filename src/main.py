@@ -10,18 +10,18 @@ class ConfigBase:
     def exists(self):
         return self.path_obj.exists()
 
-    @staticmethod
-    def from_home(path: str):
-        return str(Path.home() / Path(path))
-
 
 class ConfigFile(ConfigBase):
     def create(self):
-        with open(self.path) as _:
+        with open(self.path, "w") as _:
             pass
 
     def remove(self):
         os.remove(self.path)
+
+    @staticmethod
+    def from_home(path: str):
+        return ConfigFile(str(Path.home() / Path(path)))
 
 
 class ConfigDir(ConfigBase):
@@ -30,3 +30,7 @@ class ConfigDir(ConfigBase):
 
     def remove(self):
         os.rmdir(self.path)
+
+    @staticmethod
+    def from_home(path: str):
+        return ConfigDir(str(Path.home() / Path(path)))
